@@ -1,3 +1,126 @@
+import java.util.Scanner;
+
+public class TicTacToe {
+
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+
+        char[][] board = new char[3][3];
+
+        // Fill board with '-'
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                board[i][j] = '-';
+            }
+        }
+
+        char player = 'X';
+
+        for (int turn = 1; turn <= 9; turn++) {
+
+            // Print board
+            System.out.println("\nCurrent Board:");
+
+            for (int i = 0; i < 3; i++) {
+                for (int j = 0; j < 3; j++) {
+                    System.out.print(board[i][j] + " ");
+                }
+                System.out.println();
+            }
+
+            System.out.println("\nPlayer " + player + "'s turn");
+
+            System.out.print("Enter row (1-3): ");
+            int row = sc.nextInt();
+
+            System.out.print("Enter column (1-3): ");
+            int column = sc.nextInt();
+
+            // Convert user input to array index
+            row--;
+            column--;
+
+            // Check empty position
+            if (board[row][column] != '-') {
+                System.out.println("Position already occupied!");
+                turn--;
+                continue;
+            }
+
+            // Put X or O
+            board[row][column] = player;
+
+            // Check winner
+            boolean win = false;
+
+            // Check rows
+            for (int i = 0; i < 3; i++) {
+                if (board[i][0] == player &&
+                    board[i][1] == player &&
+                    board[i][2] == player) {
+
+                    win = true;
+                }
+            }
+
+            // Check columns
+            for (int j = 0; j < 3; j++) {
+                if (board[0][j] == player &&
+                    board[1][j] == player &&
+                    board[2][j] == player) {
+
+                    win = true;
+                }
+            }
+
+            // Main diagonal
+            if (board[0][0] == player &&
+                board[1][1] == player &&
+                board[2][2] == player) {
+
+                win = true;
+            }
+
+            // Secondary diagonal
+            if (board[0][2] == player &&
+                board[1][1] == player &&
+                board[2][0] == player) {
+
+                win = true;
+            }
+
+            if (win) {
+
+                System.out.println("\nFinal Board:");
+
+                for (int i = 0; i < 3; i++) {
+                    for (int j = 0; j < 3; j++) {
+                        System.out.print(board[i][j] + " ");
+                    }
+                    System.out.println();
+                }
+
+                System.out.println("\nPlayer " + player + " Wins! 🏆");
+
+                break;
+            }
+
+            // Change player
+            if (player == 'X') {
+                player = 'O';
+            } else {
+                player = 'X';
+            }
+        }
+    }
+}
+
+
+
+
+
+
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.ImageIcon;
